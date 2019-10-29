@@ -1,0 +1,6 @@
+package dto;
+
+public enum RolUsuario {
+	ADMINISTRATIVO,ADMINISTRADOR,CONTADOR,SUPERVISOR
+
+}
