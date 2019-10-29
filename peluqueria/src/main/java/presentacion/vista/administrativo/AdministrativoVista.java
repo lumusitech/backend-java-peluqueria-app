@@ -62,7 +62,7 @@ public class AdministrativoVista extends JFrame {
 	private JButton botonPerspectivaTurno;
 	private JButton botonPagarTurno;
 	private JDateChooser dateChooser;
-	private JComboBox comboBoxHoras;
+	private JComboBox<Object> comboBoxHoras;
 	private JButton botonFiltrarTurnos;
 
 	public static AdministrativoVista getInstance() {
@@ -294,7 +294,36 @@ public class AdministrativoVista extends JFrame {
 		dateChooser.setPreferredSize(new Dimension(150, 22));
 
 		comboBoxHoras = new JComboBox<Object>();
+		comboBoxHoras.setMaximumRowCount(12);
+		comboBoxHoras.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboBoxHoras.setBounds(86, 86, 137, 24);
+		comboBoxHoras.addItem("");
+		comboBoxHoras.addItem("8:00");
+		comboBoxHoras.addItem("8:30");
+		comboBoxHoras.addItem("9:00");
+		comboBoxHoras.addItem("9:30");
+		comboBoxHoras.addItem("10:00");
+		comboBoxHoras.addItem("10:30");
+		comboBoxHoras.addItem("11:00");
+		comboBoxHoras.addItem("11:30");
+		comboBoxHoras.addItem("12:00");
+		comboBoxHoras.addItem("12:30");
+		comboBoxHoras.addItem("13:00");
+		comboBoxHoras.addItem("13:30");
+		comboBoxHoras.addItem("14:00");
+		comboBoxHoras.addItem("14:30");
+		comboBoxHoras.addItem("15:00");
+		comboBoxHoras.addItem("15:30");
+		comboBoxHoras.addItem("16:00");
+		comboBoxHoras.addItem("16:30");
+		comboBoxHoras.addItem("17:00");
+		comboBoxHoras.addItem("17:30");
+		comboBoxHoras.addItem("18:00");
+		comboBoxHoras.addItem("18:30");
+		comboBoxHoras.addItem("19:00");
+		comboBoxHoras.addItem("19:30");
+		comboBoxHoras.addItem("20:00");
+		comboBoxHoras.addItem("20:30");
 		panel_1.add(comboBoxHoras);
 
 		JLabel lblFecha = new JLabel("Fecha");
@@ -354,7 +383,7 @@ public class AdministrativoVista extends JFrame {
 		iconoFiltrarTurnos.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
 		iconoFiltrarTurnos.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
 		iconoFiltrarTurnos.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-		String html = "<html>" + "<body>" + "<h3>Click para <font color=red>Aplicar los filtros</font>de Turnos</h3>"
+		String html = "<html>" + "<body>" + "<h3>Click para <font color=red>Aplicar los filtros</font> de Turnos</h3>"
 				+ "<font size=3 color=red><p>========================================================</p></font>"
 				+ "<font size=3><p><b>Puedes filtrar la información de la tabla estableciendo filtros</b></p></font>"
 				+ "<font size=3 color=red><p>========================================================</p></font>"
@@ -647,9 +676,45 @@ public class AdministrativoVista extends JFrame {
 	public void setPanel_1(JPanel panel_1) {
 		this.panel_1 = panel_1;
 	}
+	
+	public JCheckBox getBoxPagoPendiente() {
+		return boxPagoPendiente;
+	}
+
+	public void setBoxPagoPendiente(JCheckBox boxPagoPendiente) {
+		this.boxPagoPendiente = boxPagoPendiente;
+	}
+
+	public JCheckBox getBoxDemorado() {
+		return boxDemorado;
+	}
+
+	public void setBoxDemorado(JCheckBox boxDemorado) {
+		this.boxDemorado = boxDemorado;
+	}
+
+	public JComboBox<Object> getComboBoxHoras() {
+		return comboBoxHoras;
+	}
+
+	public void setComboBoxHoras(JComboBox<Object> comboBoxHoras) {
+		this.comboBoxHoras = comboBoxHoras;
+	}
+
+	public JButton getBotonFiltrarTurnos() {
+		return botonFiltrarTurnos;
+	}
+
+	public void setBotonFiltrarTurnos(JButton botonFiltrarTurnos) {
+		this.botonFiltrarTurnos = botonFiltrarTurnos;
+	}
 
 	public JPanel getPanel_3() {
 		return panel_3;
+	}
+	
+	public void setPanel_3(JPanel panel_3) {
+		this.panel_3 = panel_3;
 	}
 
 	public JButton getBotonPerspectivaTurno() {
@@ -674,10 +739,6 @@ public class AdministrativoVista extends JFrame {
 
 	public void setDateChooser(JDateChooser dateChooser) {
 		this.dateChooser = dateChooser;
-	}
-
-	public void setPanel_3(JPanel panel_3) {
-		this.panel_3 = panel_3;
 	}
 
 	public JPanel getPanelInferior_tabla() {

@@ -1,8 +1,12 @@
 package presentacion.controlador.administrativo;
 
+import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import dto.TurnoDTO;
 import dto.UsuarioDTO;
 import modelo.Peluqueria;
@@ -23,8 +27,29 @@ public class AdministrativoController {
 		this.peluqueria = peluqueria;
 		this.usuario = usuario;
 		this.administrativoVista = AdministrativoVista.getInstance();
+		
+		escucharBotones();
 	}
 	
+	private void escucharBotones() {
+		escucharBotonCancelar();
+	}
+
+	private void escucharBotonCancelar() {
+		this.administrativoVista.getBotonCancelarTurno().addActionListener(c -> cancelarTurno(c));
+		
+	}
+
+	private void cancelarTurno(ActionEvent c) {
+		if(this.administrativoVista.getTablaTurnos().getSelectedRow() != -1) {
+			int option = JOptionPane.showConfirmDialog(this.administrativoVista, "¿Está seguro que desea cancelar este turno?");
+			if (option == 0) this.peluqueria.cancelarTurno(this.administrativoVista.getTablaTurnos().getSelectedRow()+1);
+		}else {
+			JOptionPane.showMessageDialog(this.administrativoVista, "No se ha seleccionado ningún turno de la tabla");
+		}
+		
+	}
+
 	public void mostrarAdministrativoVista() {
 		List<TurnoDTO> turnos = this.peluqueria.obtenerTurnos();
 		setLblFechaActual();
