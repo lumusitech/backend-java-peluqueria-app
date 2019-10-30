@@ -411,7 +411,8 @@ public class AdministrativoVista extends JFrame {
 		ImageIcon iconoLimpiarFiltros_pressed = new ImageIcon(
 				AdministrativoVista.class.getResource("/presentacion/vista/img/limpiarFiltros_pressed.png"));
 
-		botonLimpiarFiltros = new JButton(new ImageIcon(AdministrativoVista.class.getResource("/presentacion/vista/img/limpiarFiltros.png")));
+		botonLimpiarFiltros = new JButton(
+				new ImageIcon(AdministrativoVista.class.getResource("/presentacion/vista/img/limpiarFiltros.png")));
 		botonLimpiarFiltros.setFocusable(false);
 		botonLimpiarFiltros.setRolloverIcon(iconoLimpiarFiltros_rollover);
 		botonLimpiarFiltros.setPressedIcon(iconoLimpiarFiltros_pressed);
@@ -633,14 +634,6 @@ public class AdministrativoVista extends JFrame {
 		this.boxPagoPendiente = boxPagoPendiente;
 	}
 
-	public JCheckBox getBoxTintura() {
-		return boxDemorado;
-	}
-
-	public void setBoxTintura(JCheckBox boxTintura) {
-		this.boxDemorado = boxTintura;
-	}
-
 	public JLabel getLblFiltros() {
 		return lblFiltros;
 	}
@@ -743,6 +736,14 @@ public class AdministrativoVista extends JFrame {
 
 	public void setBotonFiltrarTurnos(JButton botonFiltrarTurnos) {
 		this.botonFiltrarTurnos = botonFiltrarTurnos;
+	}
+
+	public JButton getBotonLimpiarFiltros() {
+		return botonLimpiarFiltros;
+	}
+
+	public void setBotonLimpiarFiltros(JButton botonLimpiarFiltros) {
+		this.botonLimpiarFiltros = botonLimpiarFiltros;
 	}
 
 	public JPanel getPanel_3() {
@@ -865,13 +866,12 @@ public class AdministrativoVista extends JFrame {
 		this.getModelInformacion().setColumnCount(0);
 		this.getModelInformacion().setColumnIdentifiers(this.getNombreColumnasTabla());
 
-		for (int i = 0; i < turnos.size(); i++) {
+		for (TurnoDTO t : turnos) {
 			// { "Fecha", "Inicio", "fin", "Cliente", "Precio", "Puntaje", "Pagado",
 			// "Estado"};
-			TurnoDTO t = turnos.get(i);
 			String fecha = t.getFecha().toString();
-			Time inicio = t.getDetalles().get(i).getHoraInicio();
-			Time fin = t.getDetalles().get(i).getHoraFin();
+			Time inicio = t.getHora_inicio();
+			Time fin = t.getDetalles().get(t.getDetalles().size() - 1).getHoraFin();
 			String cliente = t.getCliente().getNombre() + " " + t.getCliente().getApellido();
 			Float precio = t.getPrecio();
 			int puntaje = t.getPuntos();

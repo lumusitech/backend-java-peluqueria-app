@@ -214,6 +214,7 @@ on update cascade on delete cascade;
 insert into sucursal(nombre,idioma,calle,altura) values("pepepelo","espaniol","velazquez",1635);
 
 insert into profesional(nombre,apellido,email,telefono,dni,id_sucursal,estado_profesional) values("pedro","sanchez","pedrito@gmail.com","252525","38888871",1,"ACTIVO");
+insert into profesional(nombre,apellido,email,telefono,dni,id_sucursal,estado_profesional) values("marocs","vera","veram@gmail.com","256598","35005896",1,"ACTIVO");
 
 insert into servicio(nombre,precio,duracion,puntos) values("corte",1000,40,300);
 insert into servicio(nombre,precio,duracion,puntos) values("unias",1000,40,300);
@@ -223,6 +224,7 @@ insert into servicio(nombre,precio,duracion,puntos) values("tintura",1000,40,300
 insert into profesionalXservicio(id_servicio,id_profesional) values(1,1);
 
 insert into cliente(nombre,apellido,dni,email,telefono,estado_cliente,ultima_visita) values("julian","rodriguez","38888871","julian@gmail.com",46673857,"ACTIVO","2019-10-27");
+insert into cliente(nombre,apellido,dni,email,telefono,estado_cliente,ultima_visita) values("Maxi","Gamarra","32562365","maximg@gmail.com",45963215,"ACTIVO","2019-10-27");
 
 insert into usuario(nombre_user,nombre,apellido,dni,email,pass,rol,id_sucursal,estado_usuario) values("churrok","Julian","Rodriguez","38888871","julianchurrok@gmail.com","root","ADMINISTRADOR",1,"ACTIVO");
 insert into usuario(nombre_user,nombre,apellido,dni,email,pass,rol,id_sucursal,estado_usuario) values("karlux","Carlos","Figueroa","38888871","lumusika@gmail.com","root","ADMINISTRATIVO",1,"ACTIVO");
@@ -236,7 +238,22 @@ insert into servicioxpromocion(id_servicio,id_promocion) values(1,1);
 insert into servicioxpromocion(id_servicio,id_promocion) values(2,1);
 insert into servicioxpromocion(id_servicio,id_promocion) values(3,1);
 
-insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-28","18:30","OCUPADO",1000,0,100,1,1,1);
+insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-28","18:30","OCUPADO",1000,1000,1000,1,1,1);
+insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-28","18:00","DEMORADO",1000,500,100,2,1,2);
+insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-28","15:00","OCUPADO",500,250,100,1,1,2);
+insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-29","10:00","DEMORADO",1000,1000,100,2,1,1);
+insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-29","09:00","DEMORADO",1000,100,100,1,1,2);
 
 insert into detalle_turno(hora_inicio,hora_fin,id_profesional,id_servicio,id_turno) values("18:30","19:00",1,1,1);
-insert into detalle_turno(hora_inicio,hora_fin,id_profesional,id_servicio,id_turno) values("19:30","19:30",1,2,1);
+insert into detalle_turno(hora_inicio,hora_fin,id_profesional,id_servicio,id_turno) values("19:00","19:30",1,2,1);
+
+insert into detalle_turno(hora_inicio,hora_fin,id_profesional,id_servicio,id_turno) values("18:00","18:30",2,1,2);
+
+insert into detalle_turno(hora_inicio,hora_fin,id_profesional,id_servicio,id_turno) values("15:00","15:30",1,1,3);
+insert into detalle_turno(hora_inicio,hora_fin,id_profesional,id_servicio,id_turno) values("15:30","16:00",2,2,3);
+insert into detalle_turno(hora_inicio,hora_fin,id_profesional,id_servicio,id_turno) values("16:00","16:30",2,3,3);
+
+insert into detalle_turno(hora_inicio,hora_fin,id_profesional,id_servicio,id_turno) values("10:00","10:30",1,1,4);
+insert into detalle_turno(hora_inicio,hora_fin,id_profesional,id_servicio,id_turno) values("10:30","11:00",1,2,4);
+
+insert into detalle_turno(hora_inicio,hora_fin,id_profesional,id_servicio,id_turno) values("09:00","09:30",2,3,5);
