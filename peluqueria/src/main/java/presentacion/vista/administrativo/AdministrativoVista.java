@@ -64,6 +64,8 @@ public class AdministrativoVista extends JFrame {
 	private JDateChooser dateChooser;
 	private JComboBox<Object> comboBoxHoras;
 	private JButton botonFiltrarTurnos;
+	private JPanel subPanelNorth_Panel_3;
+	private JButton botonLimpiarFiltros;
 
 	public static AdministrativoVista getInstance() {
 		if (INSTANCE == null)
@@ -130,8 +132,8 @@ public class AdministrativoVista extends JFrame {
 		int ancho = botonPagarTurno.getWidth();
 		int alto = botonPagarTurno.getHeight();
 		iconoPagarTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-		iconoPagarTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-		iconoPagarTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		iconoPagarTurno_rollover.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		iconoPagarTurno_pressed.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
 		String html = "<html>" + "<body>" + "<h3>Click para <font color=red>Abonar</font> un Turno</h3>"
 				+ "<font size=3 color=red><p>=======================================================</p></font>"
 				+ "<font size=3><p><b>Puedes pagar de forma parcial o completa el turno seleccionado</b></p></font>"
@@ -164,8 +166,8 @@ public class AdministrativoVista extends JFrame {
 		int ancho = botonCrearTurno.getWidth();
 		int alto = botonCrearTurno.getHeight();
 		iconoCrearTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-		iconoCrearTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-		iconoCrearTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		iconoCrearTurno_rollover.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		iiconoCrearTurno_pressed.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
 		String html = "<html>" + "<body>" + "<h3>Click para <font color=red>Crear</font> un Turno</h3>"
 				+ "<font size=3 color=red><p>=================================================</p></font>"
 				+ "<font size=3><p><b>Puedes crear un turno completando los datos solicitados</b></p></font>"
@@ -198,8 +200,8 @@ public class AdministrativoVista extends JFrame {
 		int ancho = botonEditarTurno.getWidth();
 		int alto = botonEditarTurno.getHeight();
 		iconoEditarTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-		iconoEditarTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-		iconoEditarTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		iconoEditarTurno_rollover.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		iiconoEditarTurno_pressed.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
 		String html = "<html>" + "<body>" + "<h3>Click para <font color=red>Editar</font> un Turno</h3>"
 				+ "<font size=3 color=red><p>====================================================</p></font>"
 				+ "<font size=3><p><b>Puedes editar un seleccionado de la tabla</b></p></font>"
@@ -232,8 +234,8 @@ public class AdministrativoVista extends JFrame {
 		int ancho = botonCancelarTurno.getWidth();
 		int alto = botonCancelarTurno.getHeight();
 		iconoCancelarTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-		iconoCancelarTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-		iconoCancelarTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		iconoCancelarTurno_rollover.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		iiconoCancelarTurno_pressed.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
 		String html = "<html>" + "<body>" + "<h3>Click para <font color=red>Cancelar</font> un Turno</h3>"
 				+ "<font size=3 color=red><p>=================================================</p></font>"
 				+ "<font size=3><p><b>Puedes cancelar un turno seleccionado de la tabla</b></p></font>"
@@ -354,10 +356,16 @@ public class AdministrativoVista extends JFrame {
 		lblLogo.setHorizontalAlignment(SwingConstants.LEFT);
 		lblLogo.setForeground(Color.WHITE);
 		lblLogo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		
+
+		subPanelNorth_Panel_3 = new JPanel();
+		subPanelNorth_Panel_3.setOpaque(false);
+		subPanelNorth_Panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel_3.add(subPanelNorth_Panel_3, BorderLayout.NORTH);
+
 		setPropiedadesDelBotonfiltrarTurnos();
+		setPropiedadesDelBotonLimpiarfiltros();
 	}
-	
+
 	private void setPropiedadesDelBotonfiltrarTurnos() {
 
 		// se crean los iconos que se van a usar
@@ -381,15 +389,51 @@ public class AdministrativoVista extends JFrame {
 		int ancho = botonPerspectivaTurno.getWidth();
 		int alto = botonPerspectivaTurno.getHeight();
 		iconoFiltrarTurnos.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-		iconoFiltrarTurnos.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-		iconoFiltrarTurnos.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		iconoiconoFiltrarTurnos_rollover.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		iconoiconoFiltrarTurnos_pressed.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
 		String html = "<html>" + "<body>" + "<h3>Click para <font color=red>Aplicar los filtros</font> de Turnos</h3>"
 				+ "<font size=3 color=red><p>========================================================</p></font>"
 				+ "<font size=3><p><b>Puedes filtrar la información de la tabla estableciendo filtros</b></p></font>"
 				+ "<font size=3 color=red><p>========================================================</p></font>"
 				+ "</body></html>";
+
 		botonFiltrarTurnos.setToolTipText(html);
-		panel_3.add(botonFiltrarTurnos, BorderLayout.NORTH);
+		subPanelNorth_Panel_3.add(botonFiltrarTurnos);
+	}
+
+	private void setPropiedadesDelBotonLimpiarfiltros() {
+
+		// se crean los iconos que se van a usar
+		ImageIcon iconoLimpiarFiltros = new ImageIcon(
+				AdministrativoVista.class.getResource("/presentacion/vista/img/limpiarFiltros.png"));
+		ImageIcon iconoLimpiarFiltros_rollover = new ImageIcon(
+				AdministrativoVista.class.getResource("/presentacion/vista/img/limpiarFiltros_rollover.png"));
+		ImageIcon iconoLimpiarFiltros_pressed = new ImageIcon(
+				AdministrativoVista.class.getResource("/presentacion/vista/img/limpiarFiltros_pressed.png"));
+
+		botonLimpiarFiltros = new JButton(new ImageIcon(AdministrativoVista.class.getResource("/presentacion/vista/img/limpiarFiltros.png")));
+		botonLimpiarFiltros.setFocusable(false);
+		botonLimpiarFiltros.setRolloverIcon(iconoLimpiarFiltros_rollover);
+		botonLimpiarFiltros.setPressedIcon(iconoLimpiarFiltros_pressed);
+		botonLimpiarFiltros.setOpaque(false);// se hace transparente todo el boton default JButton
+		botonLimpiarFiltros.setContentAreaFilled(false);// cuando se presiona no muestra el fondo default del JButton
+		botonLimpiarFiltros.setBorderPainted(false);// borra el borde default del JButton
+		botonLimpiarFiltros.setBounds(91, 243, 71, 64);
+
+		// setea los tamanios de imagenes a partir de lo que ponga en setbounds
+		int ancho = botonPerspectivaTurno.getWidth();
+		int alto = botonPerspectivaTurno.getHeight();
+		iconoLimpiarFiltros.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		iconoLimpiarFiltros_rollover.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		iconoLimpiarFiltros_pressed.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		String html = "<html>" + "<body>" + "<h3>Click para <font color=red>Limpiar los filtros</font> de Turnos</h3>"
+				+ "<font size=3 color=red><p>=======================================================</p></font>"
+				+ "<font size=3><p><b>Puedes limpiar los filtros para ver todos los turnos del día</b></p></font>"
+				+ "<font size=3 color=red><p>=======================================================</p></font>"
+				+ "</body></html>";
+
+		botonLimpiarFiltros.setToolTipText(html);
+		subPanelNorth_Panel_3.add(botonLimpiarFiltros);
 	}
 
 	private void setSubPanelCentral() {
@@ -480,8 +524,8 @@ public class AdministrativoVista extends JFrame {
 		int ancho = botonPerspectivaTurno.getWidth();
 		int alto = botonPerspectivaTurno.getHeight();
 		iconoPerspectivaTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-		iconoPerspectivaTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-		iconoPerspectivaTurno.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		iconoPerspectivaTurno_rollover.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
+		iconoPerspectivaTurno_pressed.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
 		String html = "<html>" + "<body>" + "<h3>Click para <font color=red>Cambiar la vista</font> de Turnos</h3>"
 				+ "<font size=3 color=red><p>=================================================</p></font>"
 				+ "<font size=3><p><b>Puedes cambiar la forma de ver los turnos en la tabla</b></p></font>"
@@ -581,11 +625,11 @@ public class AdministrativoVista extends JFrame {
 		this.boxPromocion = boxPromocion;
 	}
 
-	public JCheckBox getboxPagoPendiente() {
+	public JCheckBox getBoxPagoPendiente() {
 		return boxPagoPendiente;
 	}
 
-	public void setboxPagoPendiente(JCheckBox boxPagoPendiente) {
+	public void setBoxPagoPendiente(JCheckBox boxPagoPendiente) {
 		this.boxPagoPendiente = boxPagoPendiente;
 	}
 
@@ -676,14 +720,6 @@ public class AdministrativoVista extends JFrame {
 	public void setPanel_1(JPanel panel_1) {
 		this.panel_1 = panel_1;
 	}
-	
-	public JCheckBox getBoxPagoPendiente() {
-		return boxPagoPendiente;
-	}
-
-	public void setBoxPagoPendiente(JCheckBox boxPagoPendiente) {
-		this.boxPagoPendiente = boxPagoPendiente;
-	}
 
 	public JCheckBox getBoxDemorado() {
 		return boxDemorado;
@@ -712,7 +748,7 @@ public class AdministrativoVista extends JFrame {
 	public JPanel getPanel_3() {
 		return panel_3;
 	}
-	
+
 	public void setPanel_3(JPanel panel_3) {
 		this.panel_3 = panel_3;
 	}
