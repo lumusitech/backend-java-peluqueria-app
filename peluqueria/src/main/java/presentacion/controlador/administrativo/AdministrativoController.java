@@ -40,10 +40,46 @@ public class AdministrativoController {
 		this.peluqueria = peluqueria;
 		this.usuario = usuario;
 		this.sucursal = usuario.getSucursal();
-		this.administrativoVista = AdministrativoVista.getInstance();
 		this.turnos = this.peluqueria.obtenerTurnos();
+		this.administrativoVista = AdministrativoVista.getInstance();
+	}
 
+	public void mostrarAdministrativoVista() {
+		setLblFechaActual(getFechaActual("dd/MM/yyyy"));
+		setLblUsuarioActual();
+		setLblSucursalActual();
+		refrescarTabla(filtrarPorFecha(this.turnos, getFechaActual("yyyy-MM-dd")));
 		escucharComponentes();
+		this.administrativoVista.mostrar();
+	}
+
+	private void setLblFechaActual(String fechaActual) {
+		this.administrativoVista.getLblFechaActual().setText("Fecha: " + fechaActual);
+	}
+
+	private String getFechaActual(String formato) {
+		LocalDate localDate = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formato);
+		String fecha = localDate.format(formatter);
+		return fecha;
+	}
+
+	private LocalDate formatearFecha(String fechaRecibida) {
+		DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		return LocalDate.parse(fechaRecibida, formateador);
+		
+	}
+
+	private void setLblUsuarioActual() {
+		this.administrativoVista.getLblUsuario().setText("Usuario: " + usuario.getUsuario());
+	}
+
+	private void setLblSucursalActual() {
+		this.administrativoVista.getLblSucursal().setText("Sucursal: " + sucursal.getNombre());
+	}
+
+	private void refrescarTabla(List<TurnoDTO> turnos) {
+		this.administrativoVista.llenarTabla(turnos);
 	}
 
 	private void escucharComponentes() {
@@ -56,9 +92,9 @@ public class AdministrativoController {
 		escucharBotonPagar();
 		escucharBotonCrear();
 		escucharBotonEditar();
-		escucharBotonCancelar();
-		escucharBotonFiltro();
-		escucharBotonLimpiarFiltro();
+		escucharBotonCancelar();// listo
+		escucharBotonFiltro();// en proceso
+		escucharBotonLimpiarFiltro();// listo
 	}
 
 	private void escucharBotonPerspectiva() {
@@ -124,19 +160,6 @@ public class AdministrativoController {
 		escucharFiltros();
 	}
 
-	private void escucharBotonLimpiarFiltro() {
-		this.administrativoVista.getBotonLimpiarFiltros().addActionListener(l -> limpiarFiltros(l));
-	}
-
-	private void limpiarFiltros(ActionEvent l) {
-		this.administrativoVista.getDateChooser().setDate(null);
-		this.administrativoVista.getComboBoxHoras().setSelectedIndex(0);
-		this.administrativoVista.getBoxPromocion().setSelected(false);
-		this.administrativoVista.getBoxDemorado().setSelected(false);
-		this.administrativoVista.getBoxPagoPendiente().setSelected(false);
-		refrescarTabla(this.turnos);
-	}
-
 	private void escucharFiltros() {
 		this.fechaEnFiltro = escucharFiltroFecha();
 		this.horaEnFiltro = escucharFiltroHora();
@@ -144,60 +167,13 @@ public class AdministrativoController {
 		this.demoradosCheck = escucharFiltroDemorados();
 		this.pagosPendientesCheck = escucharFiltroPagosPendientes();
 
-		refrescarTabla(filtrar(this.turnos));
-	}
+		if (this.fechaEnFiltro.equals("") && this.horaEnFiltro.equals("")
+				&& !(promocionesCheck && demoradosCheck && pagosPendientesCheck))
+			refrescarTabla(filtrarPorFecha(this.turnos, getFechaActual("yyyy-MM-dd")));// con los filtros vacios muestra
+																						// todos los turnos del dia
+		else
+			refrescarTabla(filtrar(this.turnos));// Si uno a varios filtros estan activos, se manda a filtrar
 
-	private List<TurnoDTO> filtrar(List<TurnoDTO> turnos) {
-		List<TurnoDTO> turnosFiltrados = new ArrayList<TurnoDTO>();
-
-		turnosFiltrados = filtrarPorFecha(this.turnos, getFechaActual("yyyy/MM/dd"));
-
-		if (promocionesCheck && demoradosCheck && pagosPendientesCheck) {
-			for (TurnoDTO t : turnosFiltrados) {
-				if (!t.getPromocion().getNombre().equals("sin promocion")
-						&& t.getPromocion().getEstado().equals(EstadoPromocion.ACTIVO)
-						&& t.getEstado_turno().equals(EstadoTurno.DEMORADO) && t.getMontoPagado() < t.getPrecio()) {
-					if (!this.fechaEnFiltro.equals("") && t.getFecha().toString().equals(fechaEnFiltro)) {
-						if (!this.horaEnFiltro.equals("") && t.getHora_inicio().toString().equals(horaEnFiltro)) {
-							turnosFiltrados.add(t);
-						}
-					}
-				}
-			}
-		} else {
-			turnosFiltrados = this.turnos;
-		}
-
-		if (!this.fechaEnFiltro.equals("")) {
-
-		}
-
-		return turnosFiltrados;
-	}
-
-	private List<TurnoDTO> filtrarPorFecha(List<TurnoDTO> lista, String fecha) {
-		List<TurnoDTO> ret = new ArrayList<TurnoDTO>();
-		if (lista != null) {
-			for (TurnoDTO t : lista) {
-				if (t.getFecha().toString().equals(fecha)) {
-					ret.add(t);
-				}
-			}
-		}
-
-		return ret;
-	}
-
-	private boolean escucharFiltroPromocion() {
-		return this.administrativoVista.getBoxPromocion().isSelected();
-	}
-
-	private boolean escucharFiltroDemorados() {
-		return this.administrativoVista.getBoxDemorado().isSelected();
-	}
-
-	private boolean escucharFiltroPagosPendientes() {
-		return this.administrativoVista.getBoxPagoPendiente().isSelected();
 	}
 
 	private String escucharFiltroFecha() {
@@ -216,34 +192,61 @@ public class AdministrativoController {
 		return (itemSeleccionado != null) ? hora = itemSeleccionado.toString() : hora;
 	}
 
-	public void mostrarAdministrativoVista() {
-		refrescarTabla(this.turnos);
-		setLblFechaActual(getFechaActual("dd/MM/yyyy"));
-		setLblUsuarioActual();
-		setLblSucursalActual();
-		this.administrativoVista.mostrar();
+	private boolean escucharFiltroPromocion() {
+		return this.administrativoVista.getBoxPromocion().isSelected();
 	}
 
-	private void setLblFechaActual(String fechaActual) {
-		this.administrativoVista.getLblFechaActual().setText("Fecha: " + fechaActual);
+	private boolean escucharFiltroDemorados() {
+		return this.administrativoVista.getBoxDemorado().isSelected();
 	}
 
-	private String getFechaActual(String formato) {
-		LocalDate localDate = LocalDate.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formato);
-		String fecha = localDate.format(formatter);
-		return fecha;
+	private boolean escucharFiltroPagosPendientes() {
+		return this.administrativoVista.getBoxPagoPendiente().isSelected();
 	}
 
-	private void refrescarTabla(List<TurnoDTO> turnos) {
-		this.administrativoVista.llenarTabla(turnos);
+	private List<TurnoDTO> filtrar(List<TurnoDTO> turnosCompletos) {
+		List<TurnoDTO> turnosFiltrados = new ArrayList<TurnoDTO>();
+
+		for (TurnoDTO t : turnosCompletos) {
+			if (!this.fechaEnFiltro.equals("")) {
+				if (t.getFecha().equals(formatearFecha(fechaEnFiltro))) {
+					turnosFiltrados.add(t);
+				}
+			}else {
+				turnosFiltrados.add(t);
+			}
+			if (!this.horaEnFiltro.equals("") && !t.getHora_inicio().toString().substring(0, 5).equals(horaEnFiltro)) {
+				
+				turnosFiltrados.remove(t);
+			}
+		}
+
+		return turnosFiltrados;
 	}
 
-	private void setLblUsuarioActual() {
-		this.administrativoVista.getLblUsuario().setText("Usuario: " + usuario.getUsuario());
+	private List<TurnoDTO> filtrarPorFecha(List<TurnoDTO> lista, String fecha) {
+		List<TurnoDTO> ret = new ArrayList<TurnoDTO>();
+		if (lista != null && !fecha.equals("")) {
+			for (TurnoDTO t : lista) {
+				if (t.getFecha().toString().equals(fecha)) {
+					ret.add(t);
+				}
+			}
+		}
+
+		return ret;
 	}
 
-	private void setLblSucursalActual() {
-		this.administrativoVista.getLblSucursal().setText("Sucursal: " + usuario.getSucursal().getNombre());
+	private void escucharBotonLimpiarFiltro() {
+		this.administrativoVista.getBotonLimpiarFiltros().addActionListener(l -> limpiarFiltros(l));
+	}
+
+	private void limpiarFiltros(ActionEvent l) {
+		this.administrativoVista.getDateChooser().setDate(null);
+		this.administrativoVista.getComboBoxHoras().setSelectedIndex(0);
+		this.administrativoVista.getBoxPromocion().setSelected(false);
+		this.administrativoVista.getBoxDemorado().setSelected(false);
+		this.administrativoVista.getBoxPagoPendiente().setSelected(false);
+		refrescarTabla(filtrarPorFecha(this.turnos, getFechaActual("yyyy-MM-dd")));
 	}
 }

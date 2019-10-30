@@ -238,11 +238,11 @@ insert into servicioxpromocion(id_servicio,id_promocion) values(1,1);
 insert into servicioxpromocion(id_servicio,id_promocion) values(2,1);
 insert into servicioxpromocion(id_servicio,id_promocion) values(3,1);
 
-insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-28","18:30","OCUPADO",1000,1000,1000,1,1,1);
-insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-28","18:00","DEMORADO",1000,500,100,2,1,2);
-insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-28","15:00","OCUPADO",500,250,100,1,1,2);
-insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-29","10:00","DEMORADO",1000,1000,100,2,1,1);
-insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-29","09:00","DEMORADO",1000,100,100,1,1,2);
+insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-30","18:30","OCUPADO",1000,1000,1000,1,1,1);
+insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-30","18:00","DEMORADO",1000,500,100,2,1,2);
+insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-30","15:00","OCUPADO",500,250,100,1,1,2);
+insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-31","10:00","DEMORADO",1000,1000,100,2,1,1);
+insert into turno(fecha,hora_inicio,estado_turno,precio,monto_pagado,puntaje,id_promocion,id_sucursal,id_cliente) values("2019-10-31","09:00","DEMORADO",1000,100,100,1,1,2);
 
 insert into detalle_turno(hora_inicio,hora_fin,id_profesional,id_servicio,id_turno) values("18:30","19:00",1,1,1);
 insert into detalle_turno(hora_inicio,hora_fin,id_profesional,id_servicio,id_turno) values("19:00","19:30",1,2,1);

@@ -300,10 +300,10 @@ public class AdministrativoVista extends JFrame {
 		comboBoxHoras.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboBoxHoras.setBounds(86, 86, 137, 24);
 		comboBoxHoras.addItem("");
-		comboBoxHoras.addItem("8:00");
-		comboBoxHoras.addItem("8:30");
-		comboBoxHoras.addItem("9:00");
-		comboBoxHoras.addItem("9:30");
+		comboBoxHoras.addItem("08:00");
+		comboBoxHoras.addItem("08:30");
+		comboBoxHoras.addItem("09:00");
+		comboBoxHoras.addItem("09:30");
 		comboBoxHoras.addItem("10:00");
 		comboBoxHoras.addItem("10:30");
 		comboBoxHoras.addItem("11:00");
