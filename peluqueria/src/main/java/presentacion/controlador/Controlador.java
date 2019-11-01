@@ -25,7 +25,7 @@ public class Controlador {
 		this.peluqueria = peluqueria;
 		this.loginVista = vista;
 		this.usuario = null;
-		this.administradorController = AdministradorController.getInstance();
+		this.administradorController = AdministradorController.getInstance(peluqueria);
 		this.contadorController = ContadorController.getInstance();
 		this.supervisorController = SupervisorController.getInstance();
 

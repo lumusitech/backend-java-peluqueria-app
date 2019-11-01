@@ -1,5 +1,8 @@
 package daoSQLtest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 import dto.EstadoProfesional;
@@ -24,6 +27,14 @@ public class ProfesionalDAOSQLtest {
 		variables();
 		ProfesionalDTO prof = daosql.obtenerDesdeID(1);
 		System.out.println(prof.toString());
+	}
+
+	@Test
+	public void readAllTest() {
+		variables();
+		List<ProfesionalDTO> lista = daosql.readAll(4);
+		System.out.println(lista.size());
+
 	}
 
 }

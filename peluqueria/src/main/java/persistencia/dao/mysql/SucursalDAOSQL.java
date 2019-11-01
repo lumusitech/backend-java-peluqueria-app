@@ -3,12 +3,15 @@ package persistencia.dao.mysql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import dto.SucursalDTO;
 import persistencia.conexion.Conexion;
 
 public class SucursalDAOSQL implements persistencia.dao.interfaz.SucursalDAO {
+
+	private static final String readall = "select * from sucursal;";
 
 	@Override
 	public boolean insert(SucursalDTO sucursal) {
@@ -36,8 +39,22 @@ public class SucursalDAOSQL implements persistencia.dao.interfaz.SucursalDAO {
 
 	@Override
 	public List<SucursalDTO> readAll() {
-		// TODO Auto-generated method stub
-		return null;
+		java.sql.PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		ArrayList<SucursalDTO> personas = new ArrayList<SucursalDTO>();
+
+		try {
+			Conexion conexion = Conexion.getConexion();
+			statement = conexion.getSQLConexion().prepareStatement(readall);
+
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				personas.add(getSucursalDTO(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("Error al recuperar las sucursales de la BBDD");
+		}
+		return personas;
 	}
 
 	@Override

@@ -24,6 +24,8 @@ public class ProfesionalDAOSQL implements ProfesionalDAO {
 
 	private static final String readall = "SELECT * FROM profesional";
 
+	private static final String readallSucu = "SELECT * FROM profesional where id_sucursal = ?";
+
 	private static final String insertX = "insert into profesionalXservicio(id_servicio,id_profesional) values( ? , ? );";
 
 	@Override
@@ -53,6 +55,27 @@ public class ProfesionalDAOSQL implements ProfesionalDAO {
 			}
 		}
 		return isInsertExitoso;
+	}
+
+	@Override
+	public List<ProfesionalDTO> readAll(int id_sucursal) {
+
+		java.sql.PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		ArrayList<ProfesionalDTO> personas = new ArrayList<ProfesionalDTO>();
+
+		try {
+			Conexion conexion = Conexion.getConexion();
+			statement = conexion.getSQLConexion().prepareStatement(readallSucu);
+			statement.setInt(1, id_sucursal);
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				personas.add(getProfesionalDTO(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("Error al recuperar las personas de la BBDD");
+		}
+		return personas;
 	}
 
 	@Override

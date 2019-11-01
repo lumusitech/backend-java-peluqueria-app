@@ -26,4 +26,6 @@ public interface ProfesionalDAO {
 
 	public boolean atarProfesionaServicio(ServicioDTO servicio, ProfesionalDTO profesional);
 
+	List<ProfesionalDTO> readAll(int id_sucursal);
+
 }

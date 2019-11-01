@@ -124,6 +124,16 @@ public class Peluqueria {
 		return lista;
 	}
 
+	public List<ProfesionalDTO> obtenerProfesionales(int id_sucursal) {
+		List<ProfesionalDTO> lista = null;
+		try {
+			lista = this.profesional.readAll(id_sucursal);
+		} catch (Exception e) {
+			throw new RuntimeException("Error al obtener los profesionales en la clase Peluqueria");
+		}
+		return lista;
+	}
+
 	public ProfesionalDTO getProfesionalDesdeID(int id_profesional_seleccionado) {
 		return this.profesional.obtenerDesdeID(id_profesional_seleccionado);
 	}
